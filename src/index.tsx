@@ -1,16 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Mainnet, DAppProvider, Config } from '@usedapp/core';
+import { getDefaultProvider } from 'ethers';
 
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const config: Config = {
+  readOnlyChainId: Mainnet.chainId,
+  readOnlyUrls: {
+    [Mainnet.chainId]: getDefaultProvider('mainnet'),
+  },
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <DAppProvider config={config}>
+      <App />
+    </DAppProvider>
   </React.StrictMode>
 );
 
